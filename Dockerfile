@@ -6,4 +6,4 @@ ADD kurento-room-demo-6.3.2-SNAPSHOT.jar /tmp/kurento-room-demo-6.3.2-SNAPSHOT.j
 ADD keystore.jks /
 
 EXPOSE 8443/tcp 8088/tcp 443/tcp
-ENTRYPOINT java -jar /tmp/kurento-room-demo-6.3.2-SNAPSHOT.jar -Dkms.uris=["autodiscovery"]
+ENTRYPOINT service kurento-media-server-6.0 start ; java -jar /tmp/kurento-room-demo-6.3.2-SNAPSHOT.jar -Dkms.uris=["autodiscovery"]
