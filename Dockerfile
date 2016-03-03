@@ -2,7 +2,7 @@ FROM nubomedia/apps-baseimage:src
 
 MAINTAINER Nubomedia
 
-RUN sudo chown -R nubomedia:nubomedia /home/nubomeda
+RUN chown -R nubomedia:nubomedia /home/nubomeda
 USER 1000
 RUN mkdir -p /home/nubomedia/.m2
 ADD settings.xml /home/nubomedia/.m2/
