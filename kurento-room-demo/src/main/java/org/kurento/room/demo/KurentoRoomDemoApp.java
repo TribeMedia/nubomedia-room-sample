@@ -67,19 +67,19 @@ public class KurentoRoomDemoApp extends KurentoRoomServerApp {
   private final JsonObject DEMO_HAT_COORDS = PropertiesManager.getPropertyJson("demo.hatCoords",
       DEFAULT_HAT_COORDS.toString(), JsonObject.class);
 
-//  @Override
-//  public KmsManager kmsManager() {
-//    JsonArray kmsUris = getPropertyJson(KurentoRoomServerApp.KMSS_URIS_PROPERTY,
-//        KurentoRoomServerApp.KMSS_URIS_DEFAULT, JsonArray.class);
-//    List<String> kmsWsUris = JsonUtils.toStringList(kmsUris);
-//
-//    log.info("Configuring Kurento Room Server to use the following kmss: " + kmsWsUris);
-//
-//    FixedNKmsManager fixedKmsManager = new FixedNKmsManager(kmsWsUris, DEMO_KMS_NODE_LIMIT);
-//    fixedKmsManager.setAuthRegex(DEMO_AUTH_REGEX);
-//    log.debug("Authorization regex for new rooms: {}", DEMO_AUTH_REGEX);
-//    return fixedKmsManager;
-//  }
+  @Override
+  public KmsManager kmsManager() {
+    JsonArray kmsUris = getPropertyJson(KurentoRoomServerApp.KMSS_URIS_PROPERTY,
+        KurentoRoomServerApp.KMSS_URIS_DEFAULT, JsonArray.class);
+    List<String> kmsWsUris = JsonUtils.toStringList(kmsUris);
+
+    log.info("Configuring Kurento Room Server to use the following kmss: " + kmsWsUris);
+
+    FixedNKmsManager fixedKmsManager = new FixedNKmsManager(kmsWsUris, DEMO_KMS_NODE_LIMIT);
+    fixedKmsManager.setAuthRegex(DEMO_AUTH_REGEX);
+    log.debug("Authorization regex for new rooms: {}", DEMO_AUTH_REGEX);
+    return fixedKmsManager;
+  }
 
   @Override
   public JsonRpcUserControl userControl() {
@@ -97,6 +97,8 @@ public class KurentoRoomDemoApp extends KurentoRoomServerApp {
   }
 
   public static void main(String[] args) throws Exception {
+    log.info("Using /dev/urandom for secure random generation");
+    System.setProperty("java.security.egd", "file:/dev/./urandom");
     SpringApplication.run(KurentoRoomDemoApp.class, args);
   }
 }
